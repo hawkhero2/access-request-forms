@@ -20,7 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <Sidebar />
       <div className="container mx-auto px-4 h-full">{children}</div>
-      {/* <body className={inter.className}>{children}</body> */}
     </html>
   )
 }
