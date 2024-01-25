@@ -1,7 +1,17 @@
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, useForm } from 'react-hook-form'
-import { FormField } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
 
 const formSchema = z.object({
@@ -20,16 +30,51 @@ const formSchema = z.object({
 
 })
 
-export default function RquestForm() {
+export default function RequestForm() {
     const responsabil : string = ''
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {}
+        defaultValues: {
+            name: '',
+            account: '',
+            badgeNumber: 0,
+            dmNmber: 0,
+            romNumber: 0,
+            client: '',
+            date: new Date(),
+            access: '',
+            internetAccess: '',
+            responsableIT: '',
+            responsable: '',
+            typeOfRequest: ''
+        }
     })
 
+    const onSubmit = (data: z.infer<typeof formSchema>) => {
+        /*
+         submit data to database after validation
+        */
+        console.log(data)
+    }
+
     return (
-            <Form>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+                    <FormField 
+                    control={form.control}
+                    name='name'
+                    render={ ({field, formState}) => ( 
+                        <FormControl>
+                            <FormLabel htmlFor='name'>Name</FormLabel>
+                            <Input {...field} id='name' placeholder='Name' />
+                            {formState.errors.name && <FormMessage>{formState.errors.name.message}</FormMessage>}
+                        </FormControl>
+                    )}
+                    >
+
+                    </FormField>
+                </form>
             </Form>
         )
 }
