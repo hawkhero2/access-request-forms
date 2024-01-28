@@ -1,3 +1,5 @@
+'use client'
+
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -64,16 +66,30 @@ export default function RequestForm() {
                     <FormField 
                     control={form.control}
                     name='name'
-                    render={ ({field, formState}) => ( 
-                        <FormControl>
-                            <FormLabel htmlFor='name'>Name</FormLabel>
-                            <Input {...field} id='name' placeholder='Name' />
-                            {formState.errors.name && <FormMessage>{formState.errors.name.message}</FormMessage>}
-                        </FormControl>
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>Name</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter your name</FormDescription>
+                        </FormItem>
                     )}
                     >
-
                     </FormField>
+                    
+                    <FormField
+                    control={form.control}
+                    name='account'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>Account</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter your account</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField> 
+
+                    <Button type='submit'>Submit</Button>
                 </form>
             </Form>
         )
