@@ -87,7 +87,85 @@ export default function RequestForm() {
                         </FormItem>
                     )}
                     >
-                    </FormField> 
+                    </FormField>
+
+                    <FormField
+                    control={form.control}
+                    name='badgeNumber'
+                    render={ ({field}) =>(
+                        <FormItem>
+                            <FormLabel>Badge Number</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter your badge number</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
+
+                    <FormField
+                    control={form.control}
+                    name='dmNmber'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>DM</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter DM number</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
+
+                    <FormField
+                    control={form.control}
+                    name='romNumber'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>ROM</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter ROM number</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
+
+                    <FormField
+                    control={form.control}
+                    name='client'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>Client</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter client name</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
+                    {/* TODO Work on   */}
+                    <FormField
+                    control={form.control}
+                    name='date'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>Date</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter date</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
+
+                    <FormField
+                    control={form.control}
+                    name='access'
+                    render={ ({field}) => (
+                        <FormItem>
+                            <FormLabel>Access</FormLabel>
+                            <Input {...field} />
+                            <FormDescription>Enter access</FormDescription>
+                        </FormItem>
+                    )}
+                    >
+                    </FormField>
 
                     <Button type='submit'>Submit</Button>
                 </form>
