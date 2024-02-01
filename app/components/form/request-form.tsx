@@ -1,9 +1,20 @@
 'use client'
 
+import * as React from 'react'
 import * as z from 'zod'
+import { format } from 'date-fns'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Button } from "@/components/ui/button"
+import { Calendar as CalendarIcon } from 'lucide-react'
+import { Calendar } from "@/components/ui/calendar"
+import { cn } from "@/lib/utils"
+import { 
+  Popover, 
+  PopoverContent, 
+  PopoverTrigger 
+} from "@/components/ui/popover"
+
 import {
   Form,
   FormControl,
@@ -32,8 +43,8 @@ const formSchema = z.object({
 
 })
 
-export default function RequestForm() {
-    const responsabil : string = ''
+export default function RequestForm() { 
+    const [date, setDate] = React.useState<Date>()
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -55,7 +66,7 @@ export default function RequestForm() {
 
     const onSubmit = (data: z.infer<typeof formSchema>) => {
         /*
-         submit data to database after validation
+         TODO submit data to database after validation
         */
         console.log(data)
     }
@@ -140,15 +151,43 @@ export default function RequestForm() {
                     )}
                     >
                     </FormField>
-                    {/* TODO Work on   */}
+
+                    {/* TODO Work on  date picker */}
                     <FormField
                     control={form.control}
                     name='date'
                     render={ ({field}) => (
-                        <FormItem>
-                            <FormLabel>Date</FormLabel>
-                            <Input {...field} />
-                            <FormDescription>Enter date</FormDescription>
+                        <FormItem className='flex flex-col'>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <FormControl>
+                                        <Button
+                                        variant={'outline'}
+                                        className={cn(
+                                            'w-[240px] pl-3 text-left font-normal',
+                                            !date && 'text-muted-foreground'
+                                            )}
+                                        >
+                                            { field.value ? ( 
+                                            format(field.value, "PPP")) : 
+                                            (<span>Pick date</span>)
+                                            }
+                                            <CalendarIcon className='mr-2 h4 w-4'/>
+                                        </Button>
+                                    </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className='w-auto p-0' align='start'>
+                                    <Calendar
+                                    mode='single'
+                                    selected={field.value}
+                                    onSelect={field.onChange}
+                                    disabled={(date) =>
+                                        date > new Date() || date < new Date("1900-01-01")
+                                    }
+                                    initialFocus
+                                    />
+                                </PopoverContent>
+                            </Popover>
                         </FormItem>
                     )}
                     >
